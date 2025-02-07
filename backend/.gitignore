@@ -1,0 +1,8 @@
+# Database
+**/database.db
+
+# Virtual env
+**/.venv
+
+# Pycache
+**/__pycache__
