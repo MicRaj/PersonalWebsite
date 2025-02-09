@@ -1,0 +1,45 @@
+name: Deploy to Raspberry Pi via Cloudflare Tunnel
+
+on:
+  push:
+    branches:
+      - main  # Trigger this workflow on pushes to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest  # Use a GitHub-hosted runner (Ubuntu)
+
+    steps:
+    # 1. Checkout code from the repository
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # 2. Set up SSH to connect to Raspberry Pi
+    - name: Set up SSH key
+      run: |
+        mkdir -p ~/.ssh
+        echo "$PI_SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+      env:
+        PI_SSH_PRIVATE_KEY: ${{ secrets.PI_SSH_PRIVATE_KEY }}
+
+    # 3. Add Raspberry Pi's Cloudflare Tunnel IP to known hosts
+    - name: Add Raspberry Pi to known hosts
+      run: |
+        ssh-keyscan -H $PI_HOSTNAME >> ~/.ssh/known_hosts
+      env:
+        PI_HOSTNAME: ${{ secrets.PI_HOSTNAME }}
+
+    # 4. SSH into Raspberry Pi through Cloudflare Tunnel and run Docker Compose
+    - name: Deploy via SSH to Raspberry Pi
+      run: |
+        ssh -o StrictHostKeyChecking=no $PI_USER@$PI_HOSTNAME << 'EOF'
+          cd PersonalWebsite  # Set your project directory
+          git pull origin main  # Pull latest code (if needed)
+          docker-compose down  # Stop any running containers
+          docker-compose up -d --build  # Rebuild and start containers in detached mode
+        EOF
+      env:
+        PI_USER: ${{ secrets.PI_USER }}
+        PI_HOSTNAME: ${{ secrets.PI_HOSTNAME }}
+
