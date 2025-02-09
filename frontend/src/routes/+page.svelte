@@ -12,7 +12,7 @@
 
 	async function getAnswers() {
 		try {
-			const response = await fetch('http://backend:8000/get');
+			const response = await fetch('/api/get');
 			const data = await response.json();
 			console.log(data);
 			answers = data;
@@ -24,7 +24,7 @@
 	async function handleYesClick() {
 		imageSrc = '/hamster_happy.jpg';
 		try {
-			await fetch('http://backend:8000/upload', {
+			await fetch('/api/upload', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: 'Yes'
@@ -38,7 +38,7 @@
 	async function handleNoClick() {
 		imageSrc = '/hamster_angry.jpg';
 		try {
-			await fetch('http://backend:8000/upload', {
+			await fetch('/api/upload', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: 'No'
