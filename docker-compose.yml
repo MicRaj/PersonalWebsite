@@ -1,6 +1,19 @@
-version: "3.8"
-
 services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx_proxy
+    ports:
+      - "80:80"    # HTTP
+      # - "443:443"  # HTTPS (for future SSL setup)
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro  # Mount custom Nginx config
+      # - ./certs:/etc/nginx/ssl  # SSL certificates (optional for HTTPS)
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - app-network
+
   frontend:
     build:
       context: ./frontend
