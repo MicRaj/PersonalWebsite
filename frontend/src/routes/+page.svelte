@@ -57,7 +57,7 @@
 <div class="container">
 	<!-- Image Section -->
 	<div>
-		<!-- <img src={imageSrc} alt="Hamster" /> -->
+		<img src={imageSrc} alt="Hamster" />
 	</div>
 
 	<!-- Button Section with Paragraph -->
