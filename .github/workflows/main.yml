@@ -3,7 +3,7 @@ name: Deploy via Cloudflare Access
 on:
   push:
     branches:
-      - '*'
+      - '*'  # Runs on all branches
 
 jobs:
   deploy:
@@ -13,27 +13,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install Cloudflare SSH Client
-        run: |
-          curl -fsSL https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o cloudflared
-          chmod +x cloudflared
-          sudo mv cloudflared /usr/local/bin/
-
-      - name: Set up SSH key
+      - name: Set up SSH keys
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          echo -e "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ssh.michalrajzer.com >> ~/.ssh/known_hosts
-          eval "$(ssh-agent -s)"
-          ssh-add ~/.ssh/id_rsa
 
-      - name: Authenticate with Cloudflare
+      - name: Install cloudflared
         run: |
-          export CF_ACCESS_CLIENT_ID=${{ secrets.CF_ACCESS_CLIENT_ID }}
-          export CF_ACCESS_CLIENT_SECRET=${{ secrets.CF_ACCESS_CLIENT_SECRET }}
+          # Download and install cloudflared
+          curl -LO https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
+          sudo dpkg -i cloudflared-linux-amd64.deb
+          sudo apt-get install -f  # Fix dependencies, if any
 
       - name: Deploy via Cloudflare SSH
+        env:
+          CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
+          CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
         run: |
-          ssh -o ProxyCommand="cloudflared access ssh --hostname ssh.michalrajzer.com" pi@ssh.michalrajzer.com \
-            "cd PersonalWebsite && git pull && docker compose up --build -d"
+          ssh -o StrictHostKeyChecking=no mrpi@ssh.michalrajzer.com -o ProxyCommand="cloudflared access ssh --hostname %h --service-token-id $CF_ACCESS_CLIENT_ID --service-token-secret $CF_ACCESS_CLIENT_SECRET" "cd PersonalWebsite && git pull && sudo docker compose up --build -d"
