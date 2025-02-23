@@ -3,7 +3,7 @@ name: Deploy via Cloudflare Access
 on:
   push:
     branches:
-      - '*'  # Runs on all branches
+      - main  # Runs on pushes to main branch
 
 jobs:
   deploy:
