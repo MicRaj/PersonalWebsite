@@ -14,5 +14,5 @@ COPY . .
 # Expose the default Vite dev server port
 EXPOSE 5173
 
-# Start the Svelte app in dev mode
-CMD ["npm", "run", "dev", "--", "--host"]
+# Start the Svelte app in production mode
+CMD ["npm", "run", "build"]
