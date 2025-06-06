@@ -2,17 +2,13 @@ FROM node:23
 
 WORKDIR /app
 
-# Copy package.json first
-COPY package.json package-lock.json ./
+COPY package*.json ./
+RUN npm ci
 
-# Install dependencies
-RUN npm install
-
-# Copy everything else
 COPY . .
 
-# Expose the default Vite dev server port
-EXPOSE 5173
+RUN npm run build
 
-# Start the Svelte app in production mode
-CMD ["npm", "run", "build"]
+EXPOSE 3000
+
+CMD ["node", "build/index.js"]
