@@ -3,8 +3,7 @@ name: Deploy via Cloudflare Access
 on:
   push:
     branches:
-      - main  # Runs on pushes to main branch
-      - run-production-build
+      - main
 
 jobs:
   deploy:
@@ -38,5 +37,5 @@ jobs:
             sudo docker compose down && \
             git fetch && \
             git checkout run-production-build && \
-            git reset --hard origin/run-production-build && \
+            git reset --hard origin/main && \
             sudo docker compose up --build -d"
