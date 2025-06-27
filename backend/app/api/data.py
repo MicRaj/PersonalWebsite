@@ -16,6 +16,10 @@ from typing import List
 router = APIRouter()
 
 
+def sanitise_html(html: str) -> str:
+    return html
+
+
 def generate_unique_slug(title: str, db: Session) -> str:
     # Slugify title (basic version; you can improve with unidecode or slugify lib)
     base_slug = re.sub(r"[^a-z0-9]+", "-", title.lower()).strip("-")
@@ -31,7 +35,7 @@ def generate_unique_slug(title: str, db: Session) -> str:
 def create_post(post: BlogPostCreate, db: SessionDep):
     created_post = BlogPost(
         title=post.title,
-        content=post.content,
+        content=sanitise_html(post.content),
         slug=generate_unique_slug(post.title, db),
     )
     db.add(created_post)
