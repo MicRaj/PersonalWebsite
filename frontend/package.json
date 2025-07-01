@@ -24,6 +24,7 @@
 		"vite": "^6.0.0"
 	},
 	"dependencies": {
-		"@sveltejs/adapter-node": "^5.2.12"
+		"@sveltejs/adapter-node": "^5.2.12",
+		"tinymce": "^7.9.1"
 	}
 }
