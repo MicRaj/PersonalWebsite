@@ -11,7 +11,7 @@ from sqlmodel import Session, select, text
 
 from app.models.blog_post import BlogPost, BlogPostCreate, BlogPostUpdate
 from app.core.database import SessionDep
-from typing import List
+from typing import List, Optional
 
 router = APIRouter()
 
@@ -37,6 +37,7 @@ def create_post(post: BlogPostCreate, db: SessionDep):
         title=post.title,
         content=sanitise_html(post.content),
         slug=generate_unique_slug(post.title, db),
+        cover_image=post.cover_image,
     )
     db.add(created_post)
     db.commit()
@@ -58,14 +59,26 @@ def read_post(post_id: int, db: SessionDep):
 
 
 @router.put("/posts/{post_id}", response_model=BlogPost)
-def update_post(post_id: int, updated_post: BlogPostUpdate, db: SessionDep):
+def update_post(
+    post_id: int,
+    updated_post: BlogPostUpdate,
+    db: SessionDep,
+):
     db_post = db.get(BlogPost, post_id)
     if not db_post:
         raise HTTPException(status_code=404, detail="Post not found")
-    db_post.title = updated_post.title
-    db_post.slug = updated_post.title.lower().replace(" ", "-")
-    db_post.content = updated_post.content
-    db_post.timestamp = int(time.time())
+
+    if updated_post.title is not None:
+        db_post.title = updated_post.title
+        db_post.slug = generate_unique_slug(updated_post.title, db)
+
+    if updated_post.content is not None:
+        db_post.content = sanitise_html(updated_post.content)
+
+    if updated_post.cover_image is not None:
+        db_post.cover_image = updated_post.cover_image
+
+    # db_post.timestamp = int(time.time())
     db.add(db_post)
     db.commit()
     db.refresh(db_post)
