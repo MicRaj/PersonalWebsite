@@ -7,6 +7,7 @@
 		title: string;
 		slug: string;
 		content: string;
+		cover_image: string;
 	};
 
 	let posts: Post[] = [];
@@ -36,6 +37,8 @@
 		<article>
 			<h1>{post.id}</h1>
 			<h2>{post.title}</h2>
+			<h2>{post.slug}</h2>
+			<img src={post.cover_image} alt={post.title} />
 			<div>{@html post.content}</div>
 		</article>
 	{/each}

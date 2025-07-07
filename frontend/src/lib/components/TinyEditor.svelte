@@ -4,6 +4,7 @@
 
 	let editorId = 'my-tinymce-editor';
 	let title: string = '';
+	let cover_image_path: string = '';
 
 	export let content: string = '';
 	export let height: number = 300;
@@ -57,6 +58,7 @@
 
 	function handleSubmit() {
 		console.log('Submitted Title:', title);
+		console.log('Submitted Cover Image:', cover_image_path);
 		console.log('Submitted Content:', content);
 		fetch('http://127.0.0.1:8000/posts/create_post', {
 			method: 'POST',
@@ -65,7 +67,8 @@
 			},
 			body: JSON.stringify({
 				title: title,
-				content: content
+				content: content,
+				cover_image: cover_image_path
 			})
 		})
 			.then((response) => response.json())
@@ -81,6 +84,12 @@
 {#if browser}
 	<div class="editor-container">
 		<input type="text" bind:value={title} placeholder="Enter title" class="title-input" />
+		<input
+			type="text"
+			bind:value={cover_image_path}
+			placeholder="Enter cover image path"
+			class="title-input"
+		/>
 
 		<textarea id={editorId}></textarea>
 
