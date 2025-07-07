@@ -58,7 +58,7 @@
 	function handleSubmit() {
 		console.log('Submitted Title:', title);
 		console.log('Submitted Content:', content);
-		fetch('https://jsonplaceholder.typicode.com/posts', {
+		fetch('http://127.0.0.1:8000/posts/create_post', {
 			method: 'POST',
 			headers: {
 				'Content-type': 'application/json; charset=UTF-8'
