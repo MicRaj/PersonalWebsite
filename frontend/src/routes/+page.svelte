@@ -1,69 +1,133 @@
 <script>
 	import { onMount } from 'svelte';
+	import SideBar from '$lib/components/SideBar.svelte';
 
 	const sections = ['welcome', 'projects', 'about'];
-
-	onMount(() => {
-		const navLinks = document.querySelectorAll('.sidebar nav ul li a');
-
-		navLinks.forEach((link) => {
-			link.addEventListener('click', (event) => {
-				event.preventDefault();
-
-				const targetId = link.getAttribute('href').substring(1);
-				const targetSection = document.getElementById(targetId);
-
-				if (targetSection) {
-					targetSection.scrollIntoView({ behavior: 'smooth' });
-				}
-			});
-		});
-	});
+	const blogs = [
+		{
+			title: 'Macropad',
+			date: '08/07/2025',
+			excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+			image: 'https://via.placeholder.com/100x80?text=Macro'
+		},
+		{
+			title: 'Self-hosted website',
+			date: '08/07/2025',
+			excerpt: 'Learn how I hosted my personal website using open-source tools.',
+			image: 'https://via.placeholder.com/100x80?text=Cloud'
+		},
+		{
+			title: 'Macropad',
+			date: '08/07/2025',
+			excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+			image: 'https://via.placeholder.com/100x80?text=Macro'
+		},
+		{
+			title: 'Self-hosted website',
+			date: '08/07/2025',
+			excerpt: 'Learn how I hosted my personal website using open-source tools.',
+			image: 'https://via.placeholder.com/100x80?text=Cloud'
+		},
+		{
+			title: 'Macropad',
+			date: '08/07/2025',
+			excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+			image: 'https://via.placeholder.com/100x80?text=Macro'
+		},
+		{
+			title: 'Self-hosted website',
+			date: '08/07/2025',
+			excerpt: 'Learn how I hosted my personal website using open-source tools.',
+			image: 'https://via.placeholder.com/100x80?text=Cloud'
+		},
+		{
+			title: 'Macropad',
+			date: '08/07/2025',
+			excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+			image: 'https://via.placeholder.com/100x80?text=Macro'
+		},
+		{
+			title: 'Self-hosted website',
+			date: '08/07/2025',
+			excerpt: 'Learn how I hosted my personal website using open-source tools.',
+			image: 'https://via.placeholder.com/100x80?text=Cloud'
+		},
+		{
+			title: 'Self-hosted website',
+			date: '08/07/2025',
+			excerpt: 'Learn how I hosted my personal website using open-source tools.',
+			image: 'https://via.placeholder.com/100x80?text=Cloud'
+		},
+		{
+			title: 'Self-hosted website',
+			date: '08/07/2025',
+			excerpt: 'Learn how I hosted my personal website using open-source tools.',
+			image: 'https://via.placeholder.com/100x80?text=Cloud'
+		},
+		{
+			title: 'Self-hosted website',
+			date: '08/07/2025',
+			excerpt: 'Learn how I hosted my personal website using open-source tools.',
+			image: 'https://via.placeholder.com/100x80?text=Cloud'
+		},
+		{
+			title: 'Self-hosted website',
+			date: '08/07/2025',
+			excerpt: 'Learn how I hosted my personal website using open-source tools.',
+			image: 'https://via.placeholder.com/100x80?text=Cloud'
+		},
+		{
+			title: 'Self-hosted website',
+			date: '08/07/2025',
+			excerpt: 'Learn how I hosted my personal website using open-source tools.',
+			image: 'https://via.placeholder.com/100x80?text=Cloud'
+		},
+		{
+			title: 'Self-hosted website',
+			date: '08/07/2025',
+			excerpt: 'Learn how I hosted my personal website using open-source tools.',
+			image: 'https://via.placeholder.com/100x80?text=Cloud'
+		},
+		{
+			title: 'Self-hosted website',
+			date: '08/07/2025',
+			excerpt: 'Learn how I hosted my personal website using open-source tools.',
+			image: 'https://via.placeholder.com/100x80?text=Cloud'
+		},
+		{
+			title: 'Self-hosted website',
+			date: '08/07/2025',
+			excerpt: 'Learn how I hosted my personal website using open-source tools.',
+			image: 'https://via.placeholder.com/100x80?text=Cloud'
+		}
+	];
 </script>
 
 <div class="app">
-	<!-- Sidebar -->
-	<aside class="sidebar">
-		<nav>
-			<ul>
-				{#each sections as section}
-					<li>
-						<a href={`#${section}`}>{section.charAt(0).toUpperCase() + section.slice(1)}</a>
-					</li>
-				{/each}
-			</ul>
-		</nav>
-		<!-- <div class="social-icons">
-			<a href="#"
-				><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" /></a
-			>
-			<a href="#"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" /></a>
-		</div> -->
-	</aside>
+	<SideBar {sections} />
 
 	<!-- Main content -->
 	<main class="content">
 		<section id="welcome">
-			<h1>Hi! I’m Michal,<br />welcome to<br />my blog</h1>
+			<h1>Hi! I'm Michal,<br />Welcome to<br />my blog</h1>
 		</section>
 
 		<section id="projects">
-			<div class="project-card red">
-				<img src="https://via.placeholder.com/100x80?text=Macro" alt="Macropad" />
-				<div class="text">
-					<h3>Macropad</h3>
-					<p class="date">08/07/2025</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-				</div>
+			<div class="sticky-header">
+				<h2>Projects</h2>
+				<hr class="projects-line" />
 			</div>
-
-			<div class="project-card purple">
-				<img src="https://via.placeholder.com/100x80?text=Cloud" alt="Self-hosted website" />
-				<div class="text">
-					<h3>Self-hosted website</h3>
-					<p class="date">08/07/2025</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-				</div>
+			<div class="blog-grid">
+				{#each blogs as blog}
+					<div class="blog-card">
+						<img src="hamster_angry.jpg" alt={blog.title} />
+						<div class="content">
+							<h3>{blog.title}</h3>
+							<p class="date">{blog.date}</p>
+							<p class="excerpt">{blog.excerpt}</p>
+						</div>
+					</div>
+				{/each}
 			</div>
 		</section>
 
@@ -83,19 +147,6 @@
 		font-family: 'Segoe UI', sans-serif;
 	}
 
-	.sidebar {
-		width: 150px;
-		background-color: #f1f9c6;
-		border-right: 2px solid #d3e4a3;
-		padding: 20px 10px;
-		position: sticky;
-		top: 0;
-		height: 100vh;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-	}
-
 	.content {
 		flex: 1;
 		overflow-y: scroll;
@@ -104,47 +155,125 @@
 	}
 
 	section {
-		min-height: 100vh;
+		min-height: 90vh;
+		height: auto;
 		padding: 40px;
-		background-color: #f1f9c6;
 		scroll-snap-align: start;
-	}
-
-	/* Sidebar */
-	ul {
-		list-style: none;
-		padding: 0;
-		line-height: 2.5;
-	}
-
-	li a {
-		text-decoration: none;
-		color: #222;
-		font-weight: 500;
-	}
-
-	li a:hover {
-		color: #006699;
-	}
-
-	.social-icons img {
-		width: 24px;
-		margin: 10px 0;
-		cursor: pointer;
+		/* scroll-padding-top: 60px; */
 	}
 
 	/* Welcome Section */
-	#welcome h1 {
-		font-size: 2.5rem;
-		color: #214c4e;
-		line-height: 1.5;
+	#welcome {
+		display: flex;
+		justify-content: center; /* Center horizontally */
+		align-items: center; /* Center vertically */
+		text-align: left;
+		min-height: 95vh; /* already present */
+		padding: 40px;
 	}
 
-	/* Projects Section */
+	#welcome h1 {
+		font-size: clamp(3.2rem, 8vw, 5.5em);
+		color: #1c5253;
+		line-height: 1.5;
+		font-family: 'Space Grotesk', sans-serif;
+		margin: 0;
+		padding-bottom: 100px;
+	}
+
 	#projects {
+		padding: 0 10px; /* horizontal padding instead of fixed width */
 		display: flex;
 		flex-direction: column;
 		gap: 20px;
+		position: relative;
+		max-width: 1200px; /* optional max width */
+		margin: 0 auto; /* center it */
+	}
+
+	/* Sticky header */
+	.sticky-header {
+		position: sticky;
+		top: 0;
+		background-color: #f3ffc6;
+		z-index: 10;
+		display: flex;
+		flex-direction: column;
+		padding-left: 40px; /* match the #projects padding */
+		padding-right: 40px;
+	}
+
+	#projects h2 {
+		background-color: #f3ffc6;
+		padding-left: 0;
+		padding-right: 0;
+		margin: 20px 0 0 0;
+		z-index: 11;
+		color: #214c4e;
+		font-size: 2rem;
+	}
+
+	.projects-line {
+		width: calc(100% -2px);
+		height: 4px;
+		background-color: #1c5253;
+		margin: 0;
+		margin-top: 8px;
+		position: sticky;
+		top: 44px; /* height of the h2 + some space */
+		z-index: 10;
+	}
+	/* 3-column grid */
+	.blog-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+		gap: 24px;
+		padding: 20px 40px 100px; /* top 20, left/right 40 (match section) */
+	}
+
+	.blog-card {
+		background: white;
+		border: 2px solid #1c5253;
+		border-radius: 10px;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+		overflow: hidden;
+		transition:
+			transform 0.2s ease,
+			box-shadow 0.2s ease;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.blog-card:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+	}
+
+	.blog-card img {
+		width: 100%;
+		height: 180px;
+		object-fit: cover;
+	}
+
+	.blog-card .content {
+		padding: 20px;
+	}
+
+	.blog-card h3 {
+		margin: 0 0 8px;
+		color: #333;
+		font-size: 1.3rem;
+	}
+
+	.blog-card .date {
+		color: #888;
+		font-size: 0.9rem;
+		margin-bottom: 12px;
+	}
+
+	.blog-card .excerpt {
+		color: #555;
+		font-size: 1rem;
 	}
 
 	.project-card {
@@ -155,6 +284,7 @@
 		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 		align-items: center;
 		gap: 20px;
+		height: 40vh;
 	}
 
 	.red {
@@ -165,6 +295,11 @@
 		background-color: #dd5edb;
 	}
 
+	#projects h2 {
+		color: #214c4e;
+		font-size: 2rem;
+		margin-bottom: 20px;
+	}
 	.project-card img {
 		width: 100px;
 		border-radius: 5px;
@@ -177,6 +312,9 @@
 	}
 
 	/* About Section */
+	#about {
+		padding-top: 0px;
+	}
 	#about h2 {
 		color: #214c4e;
 		font-size: 2rem;
@@ -186,5 +324,11 @@
 	#about p {
 		font-size: 1.1rem;
 		max-width: 600px;
+	}
+
+	:global(body) {
+		background-color: #f3ffc6;
+		margin: 0;
+		font-family: 'Space Grotesk', sans-serif;
 	}
 </style>
