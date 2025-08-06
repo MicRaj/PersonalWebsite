@@ -79,8 +79,8 @@
 	.sidebar {
 		width: 175px;
 		height: 100vh;
-		position: relative; /* Needed for ::before positioning */
-		/* Remove the full-height border */
+		position: relative;
+		user-select: none;
 	}
 	.sidebar nav {
 		padding: 5px;
@@ -113,6 +113,7 @@
 		font-family: 'Space Grotesk', sans-serif;
 		font-size: 1.5rem;
 		font-weight: 700;
+		cursor: pointer;
 	}
 
 	li a:hover {

@@ -15,6 +15,20 @@
 			date: '08/07/2025',
 			excerpt: 'Learn how I hosted my personal website using open-source tools.',
 			image: 'https://via.placeholder.com/100x80?text=Cloud'
+		}
+	];
+	const blogs1 = [
+		{
+			title: 'Macropad',
+			date: '08/07/2025',
+			excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+			image: 'https://via.placeholder.com/100x80?text=Macro'
+		},
+		{
+			title: 'Self-hosted website',
+			date: '08/07/2025',
+			excerpt: 'Learn how I hosted my personal website using open-source tools.',
+			image: 'https://via.placeholder.com/100x80?text=Cloud'
 		},
 		{
 			title: 'Macropad',
@@ -101,6 +115,25 @@
 			image: 'https://via.placeholder.com/100x80?text=Cloud'
 		}
 	];
+
+	let stopped = false;
+
+	onMount(() => {
+		const aboutExitAnchor = document.querySelector('.about-exit-anchor');
+		const contentScroll = document.querySelector('.content');
+
+		const observer = new IntersectionObserver(
+			([entry]) => {
+				stopped = entry.isIntersecting; // true when about exit anchor is visible, else false
+			},
+			{
+				root: contentScroll,
+				threshold: 0
+			}
+		);
+
+		if (aboutExitAnchor) observer.observe(aboutExitAnchor);
+	});
 </script>
 
 <div class="app">
@@ -113,7 +146,7 @@
 		</section>
 
 		<section id="projects">
-			<div class="sticky-header">
+			<div class="sticky-header" class:stoppedSticky={stopped}>
 				<h2>Projects</h2>
 				<hr class="projects-line" />
 			</div>
@@ -129,11 +162,18 @@
 					</div>
 				{/each}
 			</div>
+			<span class="snap-bottom-anchor"></span>
 		</section>
 
 		<section id="about">
-			<h2>About Me</h2>
-			<p>This is a short bio about Michal. You can customize this section however you like.</p>
+			<div class="sticky-header">
+				<h2>About me</h2>
+				<hr class="projects-line" />
+			</div>
+			<div class="about-content">
+				<p>This is a short bio about Michal. You can customize this section however you like.</p>
+			</div>
+			<div class="about-exit-anchor"></div>
 		</section>
 	</main>
 </div>
@@ -152,13 +192,26 @@
 		overflow-y: scroll;
 		scroll-snap-type: y mandatory;
 		scroll-behavior: smooth;
+		/* Hide scrollbar */
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+	}
+
+	.content::-webkit-scrollbar {
+		display: none;
+	}
+	.about-exit-anchor {
+		height: 1px;
+		margin-top: 300px;
 	}
 
 	section {
-		min-height: 90vh;
+		min-height: 100vh;
+		max-width: 1600px;
 		height: auto;
 		padding: 40px;
 		scroll-snap-align: start;
+		margin: 0 auto;
 		/* scroll-padding-top: 60px; */
 	}
 
@@ -187,24 +240,25 @@
 		flex-direction: column;
 		gap: 20px;
 		position: relative;
-		max-width: 1200px; /* optional max width */
-		margin: 0 auto; /* center it */
+		margin: 0 auto;
 	}
 
 	/* Sticky header */
 	.sticky-header {
+		background-color: #ebebeb;
 		position: sticky;
 		top: 0;
-		background-color: #f3ffc6;
 		z-index: 10;
 		display: flex;
 		flex-direction: column;
 		padding-left: 40px; /* match the #projects padding */
 		padding-right: 40px;
 	}
+	.stoppedSticky {
+		position: relative;
+	}
 
 	#projects h2 {
-		background-color: #f3ffc6;
 		padding-left: 0;
 		padding-right: 0;
 		margin: 20px 0 0 0;
@@ -228,7 +282,7 @@
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 		gap: 24px;
-		padding: 20px 40px 100px; /* top 20, left/right 40 (match section) */
+		padding: 20px 40px; /* top 20, left/right 40 (match section) */
 	}
 
 	.blog-card {
@@ -276,35 +330,6 @@
 		font-size: 1rem;
 	}
 
-	.project-card {
-		display: flex;
-		color: white;
-		padding: 20px;
-		border-radius: 10px;
-		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-		align-items: center;
-		gap: 20px;
-		height: 40vh;
-	}
-
-	.red {
-		background-color: #e74c3c;
-	}
-
-	.purple {
-		background-color: #dd5edb;
-	}
-
-	#projects h2 {
-		color: #214c4e;
-		font-size: 2rem;
-		margin-bottom: 20px;
-	}
-	.project-card img {
-		width: 100px;
-		border-radius: 5px;
-	}
-
 	.date {
 		font-size: 0.9em;
 		opacity: 0.9;
@@ -313,21 +338,37 @@
 
 	/* About Section */
 	#about {
-		padding-top: 0px;
+		padding: 0 10px; /* horizontal padding instead of fixed width */
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		position: relative;
+		margin: 0 auto; /* center it */
+		height: 100vh; /* full height */
+	}
+	.snap-bottom-anchor {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 1px; /* or whatever height you want */
+		scroll-snap-align: end;
 	}
 	#about h2 {
+		padding-left: 0;
+		padding-right: 0;
+		margin: 20px 0 0 0;
+		z-index: 11;
 		color: #214c4e;
 		font-size: 2rem;
-		margin-bottom: 10px;
 	}
 
-	#about p {
-		font-size: 1.1rem;
-		max-width: 600px;
+	.about-content {
+		padding: 20px 40px 100px; /* top 20, left/right 40 (match section) */
 	}
 
 	:global(body) {
-		background-color: #f3ffc6;
+		background-color: #ebebeb;
 		margin: 0;
 		font-family: 'Space Grotesk', sans-serif;
 	}
