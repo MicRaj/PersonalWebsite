@@ -1,6 +1,8 @@
 <script>
-	import { onMount } from 'svelte';
+	import { onMount, tick } from 'svelte';
 	import SideBar from '$lib/components/SideBar.svelte';
+	import { fade } from 'svelte/transition';
+	import { cubicOut } from 'svelte/easing';
 
 	const sections = ['welcome', 'projects', 'about'];
 
@@ -51,6 +53,44 @@
 			image: 'https://via.placeholder.com/100x80?text=Macro'
 		}
 	];
+	let show = false;
+
+	onMount(() => {
+		const observerTarget = document.querySelector('#welcome');
+		if (!observerTarget) return;
+
+		const observer = new IntersectionObserver(
+			async (entries) => {
+				for (const entry of entries) {
+					if (entry.isIntersecting) {
+						// Unmount to reset fade
+						show = false;
+						await tick(); // wait for DOM update
+
+						// Mount to trigger fade-in
+						show = true;
+
+						await tick();
+
+						// Restart wave animation
+						const waveEl = document.querySelector('.hand');
+						if (waveEl) {
+							waveEl.classList.remove('wave');
+							void waveEl.offsetWidth; // trigger reflow
+							waveEl.classList.add('wave');
+						}
+					} else {
+						show = false; // unmount when out of view
+					}
+				}
+			},
+			{ threshold: 0.2 }
+		);
+
+		observer.observe(observerTarget);
+
+		return () => observer.disconnect();
+	});
 </script>
 
 <div class="app">
@@ -59,13 +99,12 @@
 	<main class="content">
 		<!-- Welcome -->
 		<section id="welcome" class="section welcome-section">
-			<h1>
-				Hi! I'm Michal,<br />Welcome to<br />my blog<span
-					class="wave"
-					aria-label="waving hand"
-					role="img">👋</span
-				>
-			</h1>
+			{#if show}
+				<h1 in:fade={{ duration: 1000, delay: 100, easing: cubicOut }}>
+					Hi! I'm Michal,<br />Welcome to<br />my blog
+					<span class="hand wave" aria-label="waving hand" role="img"> 👋 </span>
+				</h1>
+			{/if}
 		</section>
 
 		<!-- Projects -->
@@ -271,32 +310,36 @@
 		position: absolute;
 		bottom: 0;
 	}
-	.wave {
+	.hand {
 		display: inline-block;
-		animation: wave-animation 2s infinite;
 		transform-origin: 70% 70%;
-		font-size: 1em; /* Adjust as needed */
 	}
 
-	/* Keyframes for hand wave */
+	/* Triggered only when wave class is added */
+	.wave {
+		animation: wave-animation 1.8s ease-in-out 1;
+		animation-fill-mode: forwards;
+		animation-delay: 0.4s;
+	}
+
 	@keyframes wave-animation {
 		0% {
 			transform: rotate(0deg);
 		}
 		10% {
-			transform: rotate(14deg);
+			transform: rotate(12deg);
 		}
 		20% {
-			transform: rotate(-8deg);
+			transform: rotate(-6deg);
 		}
 		30% {
-			transform: rotate(14deg);
+			transform: rotate(12deg);
 		}
 		40% {
-			transform: rotate(-4deg);
+			transform: rotate(-2deg);
 		}
 		50% {
-			transform: rotate(10deg);
+			transform: rotate(8deg);
 		}
 		60% {
 			transform: rotate(0deg);
