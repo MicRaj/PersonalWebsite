@@ -3,20 +3,7 @@
 	import SideBar from '$lib/components/SideBar.svelte';
 
 	const sections = ['welcome', 'projects', 'about'];
-	const blogs = [
-		{
-			title: 'Macropad',
-			date: '08/07/2025',
-			excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-			image: 'https://via.placeholder.com/100x80?text=Macro'
-		},
-		{
-			title: 'Self-hosted website',
-			date: '08/07/2025',
-			excerpt: 'Learn how I hosted my personal website using open-source tools.',
-			image: 'https://via.placeholder.com/100x80?text=Cloud'
-		}
-	];
+
 	const blogs1 = [
 		{
 			title: 'Macropad',
@@ -29,131 +16,70 @@
 			date: '08/07/2025',
 			excerpt: 'Learn how I hosted my personal website using open-source tools.',
 			image: 'https://via.placeholder.com/100x80?text=Cloud'
-		},
-		{
-			title: 'Macropad',
-			date: '08/07/2025',
-			excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-			image: 'https://via.placeholder.com/100x80?text=Macro'
-		},
-		{
-			title: 'Self-hosted website',
-			date: '08/07/2025',
-			excerpt: 'Learn how I hosted my personal website using open-source tools.',
-			image: 'https://via.placeholder.com/100x80?text=Cloud'
-		},
-		{
-			title: 'Macropad',
-			date: '08/07/2025',
-			excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-			image: 'https://via.placeholder.com/100x80?text=Macro'
-		},
-		{
-			title: 'Self-hosted website',
-			date: '08/07/2025',
-			excerpt: 'Learn how I hosted my personal website using open-source tools.',
-			image: 'https://via.placeholder.com/100x80?text=Cloud'
-		},
-		{
-			title: 'Macropad',
-			date: '08/07/2025',
-			excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-			image: 'https://via.placeholder.com/100x80?text=Macro'
-		},
-		{
-			title: 'Self-hosted website',
-			date: '08/07/2025',
-			excerpt: 'Learn how I hosted my personal website using open-source tools.',
-			image: 'https://via.placeholder.com/100x80?text=Cloud'
-		},
-		{
-			title: 'Self-hosted website',
-			date: '08/07/2025',
-			excerpt: 'Learn how I hosted my personal website using open-source tools.',
-			image: 'https://via.placeholder.com/100x80?text=Cloud'
-		},
-		{
-			title: 'Self-hosted website',
-			date: '08/07/2025',
-			excerpt: 'Learn how I hosted my personal website using open-source tools.',
-			image: 'https://via.placeholder.com/100x80?text=Cloud'
-		},
-		{
-			title: 'Self-hosted website',
-			date: '08/07/2025',
-			excerpt: 'Learn how I hosted my personal website using open-source tools.',
-			image: 'https://via.placeholder.com/100x80?text=Cloud'
-		},
-		{
-			title: 'Self-hosted website',
-			date: '08/07/2025',
-			excerpt: 'Learn how I hosted my personal website using open-source tools.',
-			image: 'https://via.placeholder.com/100x80?text=Cloud'
-		},
-		{
-			title: 'Self-hosted website',
-			date: '08/07/2025',
-			excerpt: 'Learn how I hosted my personal website using open-source tools.',
-			image: 'https://via.placeholder.com/100x80?text=Cloud'
-		},
-		{
-			title: 'Self-hosted website',
-			date: '08/07/2025',
-			excerpt: 'Learn how I hosted my personal website using open-source tools.',
-			image: 'https://via.placeholder.com/100x80?text=Cloud'
-		},
-		{
-			title: 'Self-hosted website',
-			date: '08/07/2025',
-			excerpt: 'Learn how I hosted my personal website using open-source tools.',
-			image: 'https://via.placeholder.com/100x80?text=Cloud'
-		},
-		{
-			title: 'Self-hosted website',
-			date: '08/07/2025',
-			excerpt: 'Learn how I hosted my personal website using open-source tools.',
-			image: 'https://via.placeholder.com/100x80?text=Cloud'
 		}
 	];
 
-	let stopped = false;
-
-	onMount(() => {
-		const aboutExitAnchor = document.querySelector('.about-exit-anchor');
-		const contentScroll = document.querySelector('.content');
-
-		const observer = new IntersectionObserver(
-			([entry]) => {
-				stopped = entry.isIntersecting; // true when about exit anchor is visible, else false
-			},
-			{
-				root: contentScroll,
-				threshold: 0
-			}
-		);
-
-		if (aboutExitAnchor) observer.observe(aboutExitAnchor);
-	});
+	const blogs = [
+		{
+			title: 'Macropad',
+			date: '08/07/2025',
+			excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+			image: 'https://via.placeholder.com/100x80?text=Macro'
+		},
+		{
+			title: 'Self-hosted website',
+			date: '08/07/2025',
+			excerpt: 'Learn how I hosted my personal website using open-source tools.',
+			image: 'https://via.placeholder.com/100x80?text=Cloud'
+		},
+		{
+			title: 'Macropad',
+			date: '08/07/2025',
+			excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+			image: 'https://via.placeholder.com/100x80?text=Macro'
+		},
+		{
+			title: 'Self-hosted website',
+			date: '08/07/2025',
+			excerpt: 'Learn how I hosted my personal website using open-source tools.',
+			image: 'https://via.placeholder.com/100x80?text=Cloud'
+		},
+		{
+			title: 'Macropad',
+			date: '08/07/2025',
+			excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+			image: 'https://via.placeholder.com/100x80?text=Macro'
+		}
+	];
 </script>
 
 <div class="app">
 	<SideBar {sections} />
 
-	<!-- Main content -->
 	<main class="content">
-		<section id="welcome">
-			<h1>Hi! I'm Michal,<br />Welcome to<br />my blog</h1>
+		<!-- Welcome -->
+		<section id="welcome" class="section welcome-section">
+			<h1>
+				Hi! I'm Michal,<br />Welcome to<br />my blog<span
+					class="wave"
+					aria-label="waving hand"
+					role="img">👋</span
+				>
+			</h1>
 		</section>
 
-		<section id="projects">
-			<div class="sticky-header" class:stoppedSticky={stopped}>
+		<!-- Projects -->
+		<section id="projects" class="section projects-section">
+			<div class="section-header">
 				<h2>Projects</h2>
-				<hr class="projects-line" />
+				<hr />
 			</div>
+
+			<!-- Blog Grid -->
 			<div class="blog-grid">
 				{#each blogs as blog}
 					<div class="blog-card">
-						<img src="hamster_angry.jpg" alt={blog.title} />
+						<img src={blog.image} alt={blog.title} />
 						<div class="content">
 							<h3>{blog.title}</h3>
 							<p class="date">{blog.date}</p>
@@ -162,29 +88,51 @@
 					</div>
 				{/each}
 			</div>
-			<span class="snap-bottom-anchor"></span>
+
+			<div id="projects-exit-anchor" class="exit-anchor snap-scroll-bottom"></div>
 		</section>
 
-		<section id="about">
-			<div class="sticky-header">
+		<!-- About -->
+		<section id="about" class="section about-section">
+			<div class="section-header">
 				<h2>About me</h2>
-				<hr class="projects-line" />
+				<hr />
 			</div>
+
 			<div class="about-content">
 				<p>This is a short bio about Michal. You can customize this section however you like.</p>
 			</div>
-			<div class="about-exit-anchor"></div>
+
+			<div id="about-exit-anchor" class="exit-anchor"></div>
 		</section>
 	</main>
 </div>
 
 <style>
-	/* Layout */
+	:root {
+		--color-bg: #ebebeb;
+		--color-primary: #1c5253;
+		--color-secondary: #214c4e;
+		--color-heading: #333;
+		--color-subtext: #555;
+		--color-muted: #888;
+		--color-white: #ffffff;
+
+		--font-body: 'Segoe UI', sans-serif;
+		--font-heading: 'Space Grotesk', sans-serif;
+	}
+
+	:global(body) {
+		background-color: var(--color-bg);
+		margin: 0;
+		font-family: var(--font-heading);
+	}
+
 	.app {
 		display: flex;
 		height: 100vh;
 		overflow: hidden;
-		font-family: 'Segoe UI', sans-serif;
+		font-family: var(--font-body);
 	}
 
 	.content {
@@ -192,184 +140,169 @@
 		overflow-y: scroll;
 		scroll-snap-type: y mandatory;
 		scroll-behavior: smooth;
+
 		/* Hide scrollbar */
 		scrollbar-width: none;
 		-ms-overflow-style: none;
 	}
 
+	/* Hide scrollbar for WebKit browsers */
 	.content::-webkit-scrollbar {
 		display: none;
 	}
-	.about-exit-anchor {
-		height: 1px;
-		margin-top: 300px;
-	}
 
-	section {
+	.section {
 		min-height: 100vh;
 		max-width: 1600px;
-		height: auto;
 		padding: 40px;
 		scroll-snap-align: start;
+		scroll-snap-stop: always;
 		margin: 0 auto;
-		/* scroll-padding-top: 60px; */
-	}
-
-	/* Welcome Section */
-	#welcome {
 		display: flex;
-		justify-content: center; /* Center horizontally */
-		align-items: center; /* Center vertically */
-		text-align: left;
-		min-height: 95vh; /* already present */
-		padding: 40px;
+		flex-direction: column;
+		gap: 20px;
 	}
 
-	#welcome h1 {
-		font-size: clamp(3.2rem, 8vw, 5.5em);
-		color: #1c5253;
+	/* Welcome */
+	.welcome-section {
+		justify-content: center;
+		align-items: center;
+		text-align: left;
+		min-height: 95vh;
+	}
+	.welcome-section h1 {
+		font-size: clamp(3.2rem, 8vw, 8em);
+		color: var(--color-primary);
 		line-height: 1.5;
-		font-family: 'Space Grotesk', sans-serif;
+		font-family: var(--font-heading);
 		margin: 0;
 		padding-bottom: 100px;
 	}
 
-	#projects {
-		padding: 0 10px; /* horizontal padding instead of fixed width */
-		display: flex;
-		flex-direction: column;
-		gap: 20px;
-		position: relative;
-		margin: 0 auto;
-	}
-
-	/* Sticky header */
-	.sticky-header {
-		background-color: #ebebeb;
-		position: sticky;
-		top: 0;
-		z-index: 10;
-		display: flex;
-		flex-direction: column;
-		padding-left: 40px; /* match the #projects padding */
-		padding-right: 40px;
-	}
-	.stoppedSticky {
-		position: relative;
-	}
-
-	#projects h2 {
-		padding-left: 0;
-		padding-right: 0;
-		margin: 20px 0 0 0;
-		z-index: 11;
-		color: #214c4e;
-		font-size: 2rem;
-	}
-
-	.projects-line {
-		width: calc(100% -2px);
-		height: 4px;
-		background-color: #1c5253;
-		margin: 0;
-		margin-top: 8px;
-		position: sticky;
-		top: 44px; /* height of the h2 + some space */
-		z-index: 10;
-	}
-	/* 3-column grid */
+	/* Projects */
 	.blog-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 		gap: 24px;
-		padding: 20px 40px; /* top 20, left/right 40 (match section) */
+		padding: 20px 40px;
 	}
 
 	.blog-card {
-		background: white;
-		border: 2px solid #1c5253;
+		background: var(--color-white);
+		border: 2px solid var(--color-primary);
 		border-radius: 10px;
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-		overflow: hidden;
 		transition:
 			transform 0.2s ease,
 			box-shadow 0.2s ease;
 		display: flex;
 		flex-direction: column;
+		overflow: hidden;
 	}
-
 	.blog-card:hover {
 		transform: translateY(-4px);
 		box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 	}
-
 	.blog-card img {
 		width: 100%;
 		height: 180px;
 		object-fit: cover;
 	}
-
 	.blog-card .content {
 		padding: 20px;
 	}
-
 	.blog-card h3 {
 		margin: 0 0 8px;
-		color: #333;
+		color: var(--color-heading);
 		font-size: 1.3rem;
 	}
-
 	.blog-card .date {
-		color: #888;
+		color: var(--color-muted);
 		font-size: 0.9rem;
 		margin-bottom: 12px;
 	}
-
 	.blog-card .excerpt {
-		color: #555;
+		color: var(--color-subtext);
 		font-size: 1rem;
 	}
-
 	.date {
 		font-size: 0.9em;
 		opacity: 0.9;
 		margin-bottom: 10px;
 	}
 
-	/* About Section */
-	#about {
-		padding: 0 10px; /* horizontal padding instead of fixed width */
+	/* About */
+	.about-content {
+		padding: 20px 40px 100px;
+	}
+
+	/* Utilities */
+	.section-header {
+		background-color: var(--color-bg);
+		position: relative;
+		top: 0;
+		z-index: 10;
 		display: flex;
 		flex-direction: column;
-		gap: 20px;
-		position: relative;
-		margin: 0 auto; /* center it */
-		height: 100vh; /* full height */
+		padding: 0 40px;
 	}
-	.snap-bottom-anchor {
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		height: 1px; /* or whatever height you want */
-		scroll-snap-align: end;
-	}
-	#about h2 {
-		padding-left: 0;
-		padding-right: 0;
-		margin: 20px 0 0 0;
-		z-index: 11;
-		color: #214c4e;
+
+	.section-header h2 {
+		margin: 0;
+		color: var(--color-secondary);
 		font-size: 2rem;
 	}
 
-	.about-content {
-		padding: 20px 40px 100px; /* top 20, left/right 40 (match section) */
+	.section-header hr {
+		width: calc(100% -2px);
+		height: 4px;
+		background-color: var(--color-primary);
+		margin-top: 8px;
+		margin: 0;
+		position: sticky;
+		top: 44px;
+		z-index: 10;
+	}
+	.snap-scroll-bottom {
+		scroll-snap-align: end;
+	}
+	.exit-anchor {
+		height: 1px;
+		position: absolute;
+		bottom: 0;
+	}
+	.wave {
+		display: inline-block;
+		animation: wave-animation 2s infinite;
+		transform-origin: 70% 70%;
+		font-size: 1em; /* Adjust as needed */
 	}
 
-	:global(body) {
-		background-color: #ebebeb;
-		margin: 0;
-		font-family: 'Space Grotesk', sans-serif;
+	/* Keyframes for hand wave */
+	@keyframes wave-animation {
+		0% {
+			transform: rotate(0deg);
+		}
+		10% {
+			transform: rotate(14deg);
+		}
+		20% {
+			transform: rotate(-8deg);
+		}
+		30% {
+			transform: rotate(14deg);
+		}
+		40% {
+			transform: rotate(-4deg);
+		}
+		50% {
+			transform: rotate(10deg);
+		}
+		60% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(0deg);
+		}
 	}
 </style>
