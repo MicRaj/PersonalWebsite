@@ -102,8 +102,15 @@
 			{#if show}
 				<h1 in:fade={{ duration: 1000, delay: 100, easing: cubicOut }}>
 					Hi! I'm Michal,<br />Welcome to<br />my blog
-					<span class="hand wave" aria-label="waving hand" role="img"> 👋 </span>
+					<span class="hand" aria-label="waving hand" role="img">
+						<span class="wave">👋</span>
+					</span>
 				</h1>
+
+				<!-- Up and Down Arrow SVG -->
+				<div class="scroll-indicator" in:fade={{ duration: 2000, delay: 3000, easing: cubicOut }}>
+					<img src="/icons/double-arrow-down.svg" alt="arrow" />
+				</div>
 			{/if}
 		</section>
 
@@ -207,8 +214,16 @@
 	.welcome-section {
 		justify-content: center;
 		align-items: center;
-		text-align: left;
 		min-height: 95vh;
+	}
+	.welcome-fade-content {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		height: 100%;
+		text-align: center;
 	}
 	.welcome-section h1 {
 		font-size: clamp(3.2rem, 8vw, 8em);
@@ -217,6 +232,27 @@
 		font-family: var(--font-heading);
 		margin: 0;
 		padding-bottom: 100px;
+		text-align: left;
+	}
+	.scroll-indicator {
+		top: 200px;
+		transform: translateX(-50%);
+	}
+
+	.scroll-indicator img {
+		width: clamp(50px, 8vw, 100px);
+		height: auto;
+		animation: arrowUpDown 1.5s infinite;
+	}
+
+	@keyframes arrowUpDown {
+		0%,
+		100% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(8px);
+		}
 	}
 
 	/* Projects */
@@ -319,14 +355,14 @@
 
 	/* Triggered only when wave class is added */
 	.wave {
-		animation: wave-animation 1.8s ease-in-out 1;
+		animation: wave-animation 1.8s ease-in-out 1 forwards;
 		animation-fill-mode: forwards;
 		animation-delay: 0.4s;
 	}
 
 	@keyframes wave-animation {
 		0% {
-			transform: rotate(0deg);
+			transform: rotate(1deg);
 		}
 		10% {
 			transform: rotate(12deg);
@@ -344,10 +380,10 @@
 			transform: rotate(8deg);
 		}
 		60% {
-			transform: rotate(0deg);
+			transform: rotate(1deg);
 		}
 		100% {
-			transform: rotate(0deg);
+			transform: rotate(1deg);
 		}
 	}
 </style>

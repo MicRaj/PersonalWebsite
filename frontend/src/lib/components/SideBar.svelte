@@ -96,7 +96,7 @@
 		}
 	}
 	.sidebar {
-		width: 250px;
+		width: 200px;
 		height: 100vh;
 		position: relative;
 		user-select: none;
@@ -147,12 +147,13 @@
 
 	.social-icons {
 		position: relative;
-		top: clamp(100px, 15vh, 400px); /* distance from bottom */
-		left: 20px; /* distance from left */
+		top: clamp(100px, 20vh, 400px);
 		display: flex;
 		flex-direction: row;
 		gap: 24px;
-		z-index: 1000; /* stay on top */
+		z-index: 1000;
+		width: 100%;
+		justify-content: center;
 	}
 
 	.social-icons a img {
