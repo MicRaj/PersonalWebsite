@@ -183,6 +183,7 @@
 		/* Hide scrollbar */
 		scrollbar-width: none;
 		-ms-overflow-style: none;
+		user-select: none;
 	}
 
 	/* Hide scrollbar for WebKit browsers */
@@ -290,6 +291,7 @@
 		margin: 0;
 		color: var(--color-secondary);
 		font-size: 2rem;
+		padding-bottom: 10px;
 	}
 
 	.section-header hr {

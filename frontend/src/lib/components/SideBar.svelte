@@ -67,6 +67,25 @@
 			{/each}
 		</ul>
 	</nav>
+	<!-- Social Icons -->
+	<div class="social-icons">
+		<a
+			href="https://github.com/your-username"
+			target="_blank"
+			rel="noopener noreferrer"
+			aria-label="GitHub"
+		>
+			<img src="/icons/github_icon.svg" alt="GitHub" />
+		</a>
+		<a
+			href="https://linkedin.com/in/your-username"
+			target="_blank"
+			rel="noopener noreferrer"
+			aria-label="LinkedIn"
+		>
+			<img src="/icons/linkedin_icon.svg" alt="LinkedIn" />
+		</a>
+	</div>
 </aside>
 
 <style>
@@ -77,7 +96,7 @@
 		}
 	}
 	.sidebar {
-		width: 175px;
+		width: 250px;
 		height: 100vh;
 		position: relative;
 		user-select: none;
@@ -88,8 +107,8 @@
 	.sidebar::before {
 		content: '';
 		position: absolute;
-		top: 5%; /* space from the top */
-		bottom: 5%; /* space from the bottom */
+		top: 20px; /* space from the top */
+		bottom: 20px; /* space from the bottom */
 		right: 0;
 		width: 7px;
 		background-color: rgba(136, 150, 150, 0.5); /* or #000000 if you prefer */
@@ -107,8 +126,8 @@
 		text-decoration: none;
 		color: #14080e;
 		font-weight: 500;
-		padding-left: 10px;
 		border-left: 4px solid transparent;
+		padding-left: 30px;
 		transition: border-color 0.3s ease;
 		font-family: 'Space Grotesk', sans-serif;
 		font-size: 1.5rem;
@@ -126,9 +145,19 @@
 		font-weight: 700;
 	}
 
-	.social-icons img {
-		width: 24px;
-		margin: 10px 0;
+	.social-icons {
+		position: relative;
+		top: clamp(100px, 15vh, 400px); /* distance from bottom */
+		left: 20px; /* distance from left */
+		display: flex;
+		flex-direction: row;
+		gap: 24px;
+		z-index: 1000; /* stay on top */
+	}
+
+	.social-icons a img {
 		cursor: pointer;
+		width: 50px;
+		height: 50px;
 	}
 </style>
