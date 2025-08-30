@@ -17,8 +17,6 @@ app.include_router(data_router)
 
 # Allowing CORS from the specific origin (localhost:5173) or any origin
 origins = [
-    "http://localhost:5173",  # Frontend app URL
-    "http://127.0.0.1:5173",
       "*"  # Or you can use localhost and 127.0.0.1 as the origin
 ]
 
