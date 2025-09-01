@@ -1,6 +1,7 @@
 <script>
 	import { onMount, tick } from 'svelte';
 	import SideBar from '$lib/components/SideBar.svelte';
+	import PostGrid from '$lib/components/PostGrid.svelte';
 	import { fade } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
 
@@ -122,18 +123,7 @@
 			</div>
 
 			<!-- Blog Grid -->
-			<div class="blog-grid">
-				{#each blogs as blog}
-					<div class="blog-card">
-						<img src={blog.image} alt={blog.title} />
-						<div class="content">
-							<h3>{blog.title}</h3>
-							<p class="date">{blog.date}</p>
-							<p class="excerpt">{blog.excerpt}</p>
-						</div>
-					</div>
-				{/each}
-			</div>
+			<PostGrid />
 
 			<div id="projects-exit-anchor" class="exit-anchor snap-scroll-bottom"></div>
 		</section>
