@@ -6,54 +6,6 @@
 	import { cubicOut } from 'svelte/easing';
 
 	const sections = ['welcome', 'projects', 'about'];
-
-	const blogs1 = [
-		{
-			title: 'Macropad',
-			date: '08/07/2025',
-			excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-			image: 'https://via.placeholder.com/100x80?text=Macro'
-		},
-		{
-			title: 'Self-hosted website',
-			date: '08/07/2025',
-			excerpt: 'Learn how I hosted my personal website using open-source tools.',
-			image: 'https://via.placeholder.com/100x80?text=Cloud'
-		}
-	];
-
-	const blogs = [
-		{
-			title: 'Macropad',
-			date: '08/07/2025',
-			excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-			image: 'https://via.placeholder.com/100x80?text=Macro'
-		},
-		{
-			title: 'Self-hosted website',
-			date: '08/07/2025',
-			excerpt: 'Learn how I hosted my personal website using open-source tools.',
-			image: 'https://via.placeholder.com/100x80?text=Cloud'
-		},
-		{
-			title: 'Macropad',
-			date: '08/07/2025',
-			excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-			image: 'https://via.placeholder.com/100x80?text=Macro'
-		},
-		{
-			title: 'Self-hosted website',
-			date: '08/07/2025',
-			excerpt: 'Learn how I hosted my personal website using open-source tools.',
-			image: 'https://via.placeholder.com/100x80?text=Cloud'
-		},
-		{
-			title: 'Macropad',
-			date: '08/07/2025',
-			excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-			image: 'https://via.placeholder.com/100x80?text=Macro'
-		}
-	];
 	let show = false;
 
 	onMount(() => {

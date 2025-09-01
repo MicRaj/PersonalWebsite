@@ -16,7 +16,7 @@
 
 	onMount(async () => {
 		try {
-			const res = await fetch('http://127.0.0.1:8000/posts/');
+			const res = await fetch('/api/posts/');
 			if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
 
 			posts = await res.json();

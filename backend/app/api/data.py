@@ -50,9 +50,17 @@ def read_posts(db: SessionDep):
     return db.exec(select(BlogPost)).all()
 
 
-@router.get("/posts/{post_id}", response_model=BlogPost)
+@router.get("/posts/id/{post_id}", response_model=BlogPost)
 def read_post(post_id: int, db: SessionDep):
     post = db.get(BlogPost, post_id)
+    if not post:
+        raise HTTPException(status_code=404, detail="Post not found")
+    return post
+
+
+@router.get("/posts/{post_slug}", response_model=BlogPost)
+def read_post(post_slug: str, db: SessionDep):
+    post = db.exec(select(BlogPost).where(BlogPost.slug == post_slug)).first()
     if not post:
         raise HTTPException(status_code=404, detail="Post not found")
     return post

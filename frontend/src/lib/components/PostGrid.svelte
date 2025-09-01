@@ -16,7 +16,7 @@
 
 	onMount(async () => {
 		try {
-			const res = await fetch('http://127.0.0.1:8000/posts/');
+			const res = await fetch('/api/posts/');
 			if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
 			posts = await res.json();
 		} catch (e: any) {
@@ -30,14 +30,14 @@
 <!-- Post Grid -->
 <div class="post-grid">
 	{#each posts as post}
-		<div class="post-card">
+		<a class="post-card" href={`/posts/${post.slug}`}>
 			<img src={post.cover_image} alt={post.title} />
 			<div class="content">
 				<h3>{post.title}</h3>
 				<p class="date">{new Date(post.timestamp).toLocaleDateString()}</p>
-				<p class="excerpt">{post.content}</p>
+				<!-- <p class="excerpt">{post.content}</p> -->
 			</div>
-		</div>
+		</a>
 	{/each}
 </div>
 
