@@ -11,7 +11,7 @@
 		console.log('Submitted Title:', title);
 		console.log('Submitted Cover Image:', cover_image_path);
 		console.log('Submitted Content:', content);
-		fetch('http://127.0.0.1:8000/posts/create_post', {
+		fetch('/api/posts/create_post', {
 			method: 'POST',
 			headers: {
 				'Content-type': 'application/json; charset=UTF-8'
