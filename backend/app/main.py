@@ -4,7 +4,7 @@ from typing import Union
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api.data import router as data_router
+from backend.app.api.posts import router as data_router
 from app.core.database import SessionDep, create_db_and_tables
 
 
