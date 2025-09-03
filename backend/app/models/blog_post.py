@@ -1,8 +1,9 @@
-from typing import Optional
-from datetime import datetime
-from sqlmodel import SQLModel, Field
-from pydantic import BaseModel
 import time
+from datetime import datetime
+from typing import Optional
+
+from pydantic import BaseModel
+from sqlmodel import Field, SQLModel
 
 
 class BlogPost(SQLModel, table=True):

@@ -29,7 +29,6 @@
 						const waveEl = document.querySelector('.hand');
 						if (waveEl) {
 							waveEl.classList.remove('wave');
-							void waveEl.offsetWidth; // trigger reflow
 							waveEl.classList.add('wave');
 						}
 					} else {
@@ -73,10 +72,7 @@
 				<h2>Projects</h2>
 				<hr />
 			</div>
-
-			<!-- Blog Grid -->
 			<PostGrid />
-
 			<div id="projects-exit-anchor" class="exit-anchor snap-scroll-bottom"></div>
 		</section>
 

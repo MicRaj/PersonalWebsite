@@ -1,9 +1,11 @@
-from typing import Union
-from fastapi import FastAPI
-from app.core.database import create_db_and_tables, SessionDep
-from app.api.data import router as data_router
-from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
+from typing import Union
+
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from app.api.data import router as data_router
+from app.core.database import SessionDep, create_db_and_tables
 
 
 @asynccontextmanager
@@ -11,14 +13,13 @@ async def lifespan(app: FastAPI):
     create_db_and_tables()
     yield
 
+
 app = FastAPI(lifespan=lifespan)
 
 app.include_router(data_router)
 
 # Allowing CORS from the specific origin (localhost:5173) or any origin
-origins = [
-      "*"  # Or you can use localhost and 127.0.0.1 as the origin
-]
+origins = ["*"]  # Or you can use localhost and 127.0.0.1 as the origin
 
 # Adding CORSMiddleware
 app.add_middleware(
@@ -29,8 +30,7 @@ app.add_middleware(
     allow_headers=["*"],  # Allow all headers
 )
 
+
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
-
-
