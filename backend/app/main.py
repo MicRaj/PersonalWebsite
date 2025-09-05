@@ -4,7 +4,8 @@ from typing import Union
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.app.api.posts import router as data_router
+from app.api.posts import router as post_router
+from app.api.users import router as user_router
 from app.core.database import SessionDep, create_db_and_tables
 
 
@@ -14,9 +15,10 @@ async def lifespan(app: FastAPI):
     yield
 
 
-app = FastAPI(lifespan=lifespan)
+app = FastAPI(lifespan=lifespan, root_path="/api")
 
-app.include_router(data_router)
+app.include_router(post_router)
+app.include_router(user_router)
 
 # Allowing CORS from the specific origin (localhost:5173) or any origin
 origins = ["*"]  # Or you can use localhost and 127.0.0.1 as the origin
