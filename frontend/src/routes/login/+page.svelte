@@ -1,5 +1,11 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
+
+	interface LoginPageData {
+		next?: string;
+	}
+	export let data: LoginPageData;
+
 	let username = '';
 	let password = '';
 	let loading = false;
@@ -12,15 +18,16 @@
 			const res = await fetch('/api/login/', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ username: username, password: password }),
+				body: JSON.stringify({ username, password }),
 				credentials: 'include'
 			});
+
 			if (!res.ok) {
-				const data = await res.json();
-				error = data.message || 'Login failed';
+				const result = await res.json();
+				error = result.message || 'Login failed';
 			} else {
-				// Redirect or handle successful login
-				// window.location.href = '/post-editor';
+				const next = data.next || '/';
+				goto(next);
 			}
 		} catch (e) {
 			error = 'Network error';

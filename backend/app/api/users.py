@@ -1,43 +1,40 @@
 import datetime
 import json
+import os
 import re
 import shutil
 import time
+from pathlib import Path
 from typing import List, Optional
 
-from fastapi import (
-    APIRouter,
-    Depends,
-    File,
-    HTTPException,
-    Request,
-    UploadFile,
-    Response,
-    status,
-    Cookie,
-)
+import bcrypt
+from dotenv import load_dotenv
+from fastapi import (APIRouter, Cookie, Depends, File, HTTPException, Request,
+                     Response, UploadFile, status)
+from itsdangerous import TimestampSigner
 from sqlmodel import Session, select, text
 
-from app.core.database import SessionDep
+from app.core.database import SessionDep, get_session
 from app.models.blog_post import BlogPost, BlogPostCreate, BlogPostUpdate
-from app.models.user import User, UserCreate, UserLogin
 from app.models.session import SessionModel
-from app.core.database import get_session
-from itsdangerous import TimestampSigner
+from app.models.user import User, UserCreate, UserLogin
 
-
-SECRET_KEY = "super-secret"  # load from env in real app
+secret_file = Path("/run/secrets/backend_secret_key")
+SECRET_KEY = secret_file.read_text().strip()
 signer = TimestampSigner(SECRET_KEY)
 
 router = APIRouter()
 
 
 def hash_password(password: str) -> str:
-    return password  # Replace with actual hashing logic
+    hashed = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode()
+    return hashed
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    return plain_password == hashed_password  # Replace with actual verification logic
+    return bcrypt.checkpw(
+        plain_password.encode("utf-8"), hashed_password.encode("utf-8")
+    )
 
 
 def get_current_user(db: Session, session_id: str):
@@ -99,19 +96,19 @@ def login_attempt(login: UserLogin, response: Response, db: SessionDep):
     if not user or not verify_password(login.password, user.hashed_password):
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
-    session = SessionModel(user_id=user.id)
-    db.add(session)
-    db.commit()
-    db.refresh(session)
-
     # Check for existing session
     existing_session = db.exec(
         select(SessionModel).where(SessionModel.user_id == user.id)
     ).first()
 
-    # if existing_session:
-    #     db.delete(existing_session)
-    #     db.commit()
+    if existing_session:
+        db.delete(existing_session)
+        db.commit()
+
+    session = SessionModel(user_id=user.id)
+    db.add(session)
+    db.commit()
+    db.refresh(session)
 
     # Sign the session ID and set as HttpOnly cookie
     signed_session_id = signer.sign(session.id).decode()
@@ -122,22 +119,16 @@ def login_attempt(login: UserLogin, response: Response, db: SessionDep):
         secure=False,
         samesite="lax",
         max_age=86400,  # 1 day
+        path="/",
     )
 
     return {"message": "Login successful"}
 
 
-# @router.get("/me")
-# def read_me():
-#     return {"id": 1, "username": "Michal"}
-
-
 @router.get("/me")
 def read_me(db: SessionDep, session_id: str = Cookie(None)):
-    # user = get_current_user(db, session_id)
-    # return {"id": user.id, "username": user.username}
-    print("session_id:", session_id)
-    return 0
+    user = get_current_user(db, session_id)
+    return {"id": user.id, "username": user.username}
 
 
 @router.get("/sessions")

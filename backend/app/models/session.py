@@ -1,5 +1,7 @@
-import time, secrets
-from sqlmodel import SQLModel, Field
+import secrets
+import time
+
+from sqlmodel import Field, SQLModel
 
 
 class SessionModel(SQLModel, table=True):

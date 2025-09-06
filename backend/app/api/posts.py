@@ -84,7 +84,6 @@ def update_post(
     if updated_post.cover_image is not None:
         db_post.cover_image = updated_post.cover_image
 
-    # db_post.timestamp = int(time.time())
     db.add(db_post)
     db.commit()
     db.refresh(db_post)
