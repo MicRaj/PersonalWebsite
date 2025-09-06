@@ -37,18 +37,6 @@ app = FastAPI(
 app.include_router(post_router)
 app.include_router(user_router)
 
-# Allowing CORS from the specific origin (localhost:5173) or any origin
-origins = ["*"]  # Or you can use localhost and 127.0.0.1 as the origin
-
-# Adding CORSMiddleware
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Allow all origins or specify the frontend URL
-    allow_credentials=True,
-    allow_methods=["*"],  # Allow all methods
-    allow_headers=["*"],  # Allow all headers
-)
-
 
 @app.get("/")
 def read_root():
