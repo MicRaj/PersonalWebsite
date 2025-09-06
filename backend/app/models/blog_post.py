@@ -1,8 +1,9 @@
-from typing import Optional
-from datetime import datetime
-from sqlmodel import SQLModel, Field
-from pydantic import BaseModel
 import time
+from datetime import datetime
+from typing import Optional
+
+from pydantic import BaseModel
+from sqlmodel import Field, SQLModel
 
 
 class BlogPost(SQLModel, table=True):
@@ -12,6 +13,7 @@ class BlogPost(SQLModel, table=True):
     slug: str = Field(index=True, unique=True)
     content: str
     cover_image: str  # Path to image file, .etc '/hamster_neutral.jpg'
+    user_id: int = Field(foreign_key="user.id")
 
 
 class BlogPostCreate(BaseModel):
