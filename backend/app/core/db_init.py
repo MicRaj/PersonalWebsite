@@ -26,7 +26,7 @@ def create_initial_admin():
         admin_user = User(
             username=ADMIN_USERNAME,
             hashed_password=hash_password(ADMIN_PASSWORD),
-            # is_admin=True,
+            is_admin=True,
         )
         db.add(admin_user)
         db.commit()

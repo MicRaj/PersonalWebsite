@@ -3,5 +3,5 @@
 	import PostEditor from '$lib/components/PostEditor.svelte';
 </script>
 
-<h1>Welcome, {JSON.stringify(data)}!</h1>
+<h1>Welcome, {data.user.username}!</h1>
 <PostEditor />

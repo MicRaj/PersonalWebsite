@@ -76,7 +76,10 @@ def cleanup_expired_sessions(db: Session):
 
 
 @router.post("/users/", response_model=User, status_code=status.HTTP_201_CREATED)
-def create_user(user: UserCreate, db: SessionDep):
+def create_user(user: UserCreate, db: SessionDep, session_id: str = Cookie(None)):
+    user = get_current_user(db, session_id)
+    if not user.is_admin:
+        raise HTTPException(status_code=403, detail="Not authorized to create users")
     existing_user = db.exec(select(User).where(User.username == user.username)).first()
     if existing_user:
         raise HTTPException(status_code=400, detail="Username already registered")
@@ -128,12 +131,4 @@ def login_attempt(login: UserLogin, response: Response, db: SessionDep):
 @router.get("/me")
 def read_me(db: SessionDep, session_id: str = Cookie(None)):
     user = get_current_user(db, session_id)
-    return {"id": user.id, "username": user.username}
-
-
-@router.get("/sessions")
-def get_my_sessions(db: SessionDep):
-    sessions = db.exec(select(SessionModel)).all()
-    return [
-        {"id": session.id, "expires_at": session.expires_at} for session in sessions
-    ]
+    return {"id": user.id, "username": user.username, "is_admin": user.is_admin}

@@ -48,7 +48,6 @@
 		gap: 24px;
 		padding: 20px 40px;
 	}
-
 	.post-card {
 		background: var(--color-white);
 		border: 2px solid var(--color-primary);
@@ -60,6 +59,10 @@
 		display: flex;
 		flex-direction: column;
 		overflow: hidden;
+	}
+	a.post-card {
+		text-decoration: none;
+		color: inherit;
 	}
 	.post-card:hover {
 		transform: translateY(-4px);

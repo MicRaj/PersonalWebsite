@@ -84,7 +84,7 @@
 			</div>
 
 			<div class="about-content">
-				<p>This is a short bio about Michal. You can customize this section however you like.</p>
+				<p>This is a short bio</p>
 			</div>
 
 			<div id="about-exit-anchor" class="exit-anchor"></div>
