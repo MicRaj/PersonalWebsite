@@ -10,7 +10,6 @@ from app.models.user import User
 ADMIN_USERNAME = os.getenv("ADMIN_USERNAME")
 secret_file = Path("/run/secrets/admin_password")
 ADMIN_PASSWORD = secret_file.read_text().strip()
-print(f"ADMIN_USERNAME: {ADMIN_USERNAME}, ADMIN_PASSWORD: {ADMIN_PASSWORD}")
 
 
 def hash_password(password: str) -> str:
