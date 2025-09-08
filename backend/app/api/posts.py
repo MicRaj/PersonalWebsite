@@ -12,6 +12,7 @@ from app.core.database import SessionDep
 from app.models.blog_post import BlogPost, BlogPostCreate, BlogPostUpdate
 from app.api.users import get_current_user
 import bleach
+from bleach.css_sanitizer import CSSSanitizer
 
 router = APIRouter()
 
@@ -42,10 +43,20 @@ def sanitise_html(html: str) -> str:
     ]
 
     allowed_attrs = {
+        "*": ["align", "style"],
         "a": ["href", "title", "target", "rel"],
         "img": ["src", "alt", "title", "width", "height"],
     }
 
+    css_sanitizer = CSSSanitizer(
+        allowed_css_properties=[
+            "text-align",
+            "font-family",
+            "display",
+            "margin-left",
+            "margin-right",
+        ]
+    )
     # Allowed protocols for href/src (data for embedded images)
     allowed_protocols = ["http", "https", "mailto", "data"]
 
@@ -55,6 +66,7 @@ def sanitise_html(html: str) -> str:
         attributes=allowed_attrs,
         protocols=allowed_protocols,
         strip=True,  # Strip disallowed tags instead of escaping
+        css_sanitizer=css_sanitizer,
     )
 
     return cleaned_html
