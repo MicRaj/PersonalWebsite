@@ -52,7 +52,8 @@
 
 <style>
 	.editor-container {
-		max-width: 60%;
+		max-width: 900px;
+		width: 90%;
 		margin: 2rem auto;
 		padding: 1rem;
 		display: flex;
@@ -65,7 +66,6 @@
 		font-size: 1.5rem;
 		border: 1px solid #ccc;
 		border-radius: 4px;
-		width: 100%;
 	}
 
 	.submit-button {

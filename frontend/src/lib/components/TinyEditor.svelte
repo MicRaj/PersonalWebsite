@@ -5,7 +5,7 @@
 	let editorId = 'my-tinymce-editor';
 
 	export let content: string = '';
-	export let height: number = 300;
+	export let height: number = 500;
 
 	let editorInstance: any;
 
@@ -23,11 +23,11 @@
 		tinymce.init({
 			selector: `#${editorId}`,
 			license_key: 'gpl',
-			height,
+			height: height,
 			menubar: false,
 			branding: false,
 			statusbar: false,
-			plugins: ['advlist', 'autolink', 'lists', 'link', 'image', 'wordcount'],
+			plugins: ['advlist', 'autolink', 'lists', 'link', 'image', 'wordcount', 'autoresize'],
 			toolbar:
 				'undo redo | blocks fontfamily fontsize| ' +
 				'bold italic backcolor | alignleft aligncenter ' +
