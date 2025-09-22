@@ -34,7 +34,7 @@
 			<img src={post.cover_image} alt={post.title} />
 			<div class="content">
 				<h3>{post.title}</h3>
-				<p class="date">{new Date(post.timestamp).toLocaleDateString()}</p>
+				<p class="date">{new Date(post.timestamp * 1000).toLocaleDateString()}</p>
 				<!-- <p class="excerpt">{post.content}</p> -->
 			</div>
 		</a>

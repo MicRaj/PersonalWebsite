@@ -93,21 +93,8 @@
 </div>
 
 <style>
-	:root {
-		--color-bg: #ebebeb;
-		--color-primary: #1c5253;
-		--color-secondary: #214c4e;
-		--color-heading: #333;
-		--color-subtext: #555;
-		--color-muted: #888;
-		--color-white: #ffffff;
-
-		--font-body: 'Segoe UI', sans-serif;
-		--font-heading: 'Space Grotesk', sans-serif;
-	}
-
 	:global(body) {
-		background-color: var(--color-bg);
+		background-color: var(--color-background);
 		margin: 0;
 		font-family: var(--font-heading);
 	}

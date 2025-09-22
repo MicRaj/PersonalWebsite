@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { onMount } from 'svelte';
+	import SideBarPost from '$lib/components/SideBarPost.svelte';
 	type Post = {
 		id: number;
 		timestamp: number;
@@ -25,50 +26,107 @@
 	});
 </script>
 
-<div class="container">
-	{#if post}
-		<h1>{post.title}</h1>
-		<!-- <img src={post.cover_image} alt={post.title} /> -->
-		<p>{@html post.content}</p>
-	{:else if error}
-		<p>{error}</p>
-	{:else}
-		<p>Loading...</p>
-	{/if}
+<div class="app">
+	<SideBarPost />
+	<main class="content">
+		<div class="post-container">
+			{#if post}
+				<div class="heading-image" style="background-image: url('{post.cover_image}')"></div>
+				<div class="post-tile">
+					<h1>{post.title}</h1>
+					<div class="post-content">
+						<p>{@html post.content}</p>
+					</div>
+				</div>
+			{:else if error}
+				<p>{error}</p>
+			{:else}
+				<p>Loading...</p>
+			{/if}
+		</div>
+	</main>
 </div>
 
 <style>
-	/* Center everything vertically and horizontally */
-	.container {
+	:global(html, body) {
+		height: 100%;
+		margin: 0;
+		padding: 0;
+	}
+
+	.app {
 		display: flex;
+		height: 100vh;
+		overflow: hidden;
+		font-family: var(--font-body);
+		background: var(--color-background);
+	}
+	.content {
+		flex: 1;
+		overflow-y: scroll;
+		/* scroll-snap-type: y mandatory;
+		scroll-behavior: smooth; */
+
+		/* Hide scrollbar */
+		/* scrollbar-width: none;
+		-ms-overflow-style: none;
+		user-select: none; */
+	}
+
+	.post-container {
+		flex: 1;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		min-height: 100vh; /* full viewport height */
-		padding: 1rem;
-		box-sizing: border-box;
-		background-color: #f9f9f9;
+		min-height: 100vh;
+		max-width: 900px;
+		width: 90%;
+		margin: 0 auto;
+		padding: 0;
+		user-select: text;
+		border-left: 1px solid rgba(0, 0, 0, 0.05);
+		border-right: 1px solid rgba(0, 0, 0, 0.05);
 	}
-
-	h1 {
-		font-size: 2rem;
-		margin-bottom: 1rem;
+	.post-container .post-tile {
+		padding: 0 40px 0 40px;
+	}
+	.post-container h1 {
+		font-size: clamp(2rem, 6vw, 3rem);
+		font-weight: 800;
+		margin-top: 0;
+		margin-bottom: 1.5rem;
 		text-align: center;
+		color: var(--color-primary-text);
+		line-height: 1.2;
+		position: relative;
 	}
 
-	img {
-		max-width: 100%;
-		height: auto;
-		margin-bottom: 1rem;
-		border-radius: 8px;
-		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	/* Add a subtle underline accent */
+	.post-container h1::after {
+		content: '';
+		display: block;
+		width: 60px;
+		height: 4px;
+		margin: 0.5rem auto 0;
+		background: linear-gradient(90deg, #03045e, #8d5a97);
+		border-radius: 2px;
+	}
+	.heading-image {
+		background-image: url('cover.jpg');
+		background-size: cover;
+		background-position: center;
+		width: 100%;
+		height: 80px;
 	}
 
-	p {
-		max-width: 600px;
-		line-height: 1.6;
-		text-align: justify;
-		font-size: 1rem;
-		color: #333;
+	/* Mobile adjustments */
+	@media (max-width: 768px) {
+		.post-container {
+			margin-left: 0; /* stack content under sidebar */
+			padding: 0 1.2rem 0 1.2rem;
+			max-width: 100%;
+		}
+
+		/* sidebar is hidden via its own CSS already */
 	}
 </style>
