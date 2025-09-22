@@ -64,6 +64,8 @@
 	.content {
 		flex: 1;
 		overflow-y: scroll;
+		padding: 0;
+		margin: 0;
 		/* scroll-snap-type: y mandatory;
 		scroll-behavior: smooth; */
 
@@ -88,7 +90,7 @@
 		border-right: 1px solid rgba(0, 0, 0, 0.05);
 	}
 	.post-container .post-tile {
-		padding: 0 40px 0 40px;
+		padding: 0 1.2rem 0 1.2rem;
 	}
 	.post-container h1 {
 		font-size: clamp(2rem, 6vw, 3rem);
@@ -116,15 +118,17 @@
 		background-size: cover;
 		background-position: center;
 		width: 100%;
-		height: 80px;
+		height: 120px;
 	}
 
 	/* Mobile adjustments */
 	@media (max-width: 768px) {
 		.post-container {
-			margin-left: 0; /* stack content under sidebar */
-			padding: 0 1.2rem 0 1.2rem;
-			max-width: 100%;
+			width: 100%;
+			margin: 0;
+		}
+		.heading-image {
+			height: 50px;
 		}
 
 		/* sidebar is hidden via its own CSS already */
