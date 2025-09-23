@@ -49,6 +49,6 @@ jobs:
             "cd PersonalWebsite && \
             sudo docker compose down && \
             git fetch --all --tags --force && \
-            TAG_NAME=\${GITHUB_REF#refs/tags/} && \ 
-            git checkout -f tags/\$TAG_NAME; && \
+            TAG_NAME=\${GITHUB_REF#refs/tags/} && \
+            git checkout -f tags/\$TAG_NAME && \
             sudo docker compose up --build -d"
