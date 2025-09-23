@@ -2,7 +2,7 @@
 	import { goto } from '$app/navigation';
 
 	function goHome() {
-		goto('/');
+		goto('/#projects');
 	}
 </script>
 
@@ -90,7 +90,7 @@
 
 	.social-icons {
 		position: relative;
-		top: 100px;
+		top: max(100px, calc(100vh - 285px));
 		display: flex;
 		flex-direction: row;
 		gap: 24px;
@@ -103,7 +103,6 @@
 		cursor: pointer;
 		width: 50px;
 		height: 50px;
-		transition: transform 0.2s ease;
 	}
 
 	.social-icons a img:hover {

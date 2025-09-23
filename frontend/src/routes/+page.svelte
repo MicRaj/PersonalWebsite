@@ -9,6 +9,19 @@
 	let show = false;
 
 	onMount(() => {
+		// Check for section link
+		const hash = window.location.hash; // e.g. "#projects"
+		if (hash) {
+			const sectionId = hash.substring(1); // remove the "#"
+			const container = document.querySelector('.content');
+			const section = document.getElementById(sectionId);
+			if (container && section) {
+				container.scrollTo({
+					top: section.offsetTop,
+					behavior: 'smooth' // optional: animate scroll
+				});
+			}
+		}
 		const observerTarget = document.querySelector('#welcome');
 		if (!observerTarget) return;
 

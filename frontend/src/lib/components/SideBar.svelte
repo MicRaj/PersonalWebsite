@@ -145,7 +145,7 @@
 
 	.social-icons {
 		position: relative;
-		top: clamp(100px, 20vh, 400px);
+		top: max(100px, calc(100vh - 405px));
 		display: flex;
 		flex-direction: row;
 		gap: 24px;
