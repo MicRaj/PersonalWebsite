@@ -3,9 +3,9 @@ name: Deploy via Cloudflare Access
 on:
   push:
     branches:
-      - '**'
+      - "**"
     tags:
-      - 'v*'
+      - "v*"
 
 jobs:
   test-build:
@@ -13,11 +13,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-    
+
       - name: Build Docker image
         run: |
           docker compose build
-
 
   deploy:
     runs-on: ubuntu-latest
@@ -49,7 +48,7 @@ jobs:
             -o ProxyCommand="cloudflared access ssh --hostname %h --service-token-id $CF_ACCESS_CLIENT_ID --service-token-secret $CF_ACCESS_CLIENT_SECRET" \
             "cd PersonalWebsite && \
             sudo docker compose down && \
-            git fetch && \
-            git checkout run-production-build && \
-            git reset --hard origin/main && \
+            git fetch --all --tags --force && \
+            TAG_NAME=\${GITHUB_REF#refs/tags/} && \ 
+            git checkout -f tags/\$TAG_NAME; && \
             sudo docker compose up --build -d"
