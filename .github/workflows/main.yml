@@ -43,12 +43,12 @@ jobs:
         env:
           CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
           CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
+          TAG_NAME: ${{ github.ref_name }}
         run: |
           ssh -o StrictHostKeyChecking=no mrpi@ssh.michalrajzer.com \
             -o ProxyCommand="cloudflared access ssh --hostname %h --service-token-id $CF_ACCESS_CLIENT_ID --service-token-secret $CF_ACCESS_CLIENT_SECRET" \
             "cd PersonalWebsite && \
             sudo docker compose down && \
             git fetch --all --tags --force && \
-            TAG_NAME=\${GITHUB_REF#refs/tags/} && \
             git checkout -f tags/\$TAG_NAME && \
             sudo docker compose up --build -d"
