@@ -50,5 +50,5 @@ jobs:
             "cd PersonalWebsite && \
             sudo docker compose down && \
             git fetch --all --tags --force && \
-            git checkout -f tags/\$TAG_NAME && \
+            git checkout -f $TAG_NAME && \
             sudo docker compose up --build -d"
